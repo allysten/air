@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Air's Bossa Nova Lounge 🌿☕</title>
+    <!-- Importing gentle, aesthetic fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Quicksand:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Quicksand:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             /* Default Galaxy Colors */
@@ -28,7 +29,6 @@
         }
 
         body {
-            /* We use CSS variables here so JavaScript can smoothly change them! */
             background: linear-gradient(-45deg, var(--bg-grad-1), var(--bg-grad-2), var(--bg-grad-3), var(--bg-grad-2));
             background-size: 400% 400%;
             animation: infiniteGradient 30s ease infinite;
@@ -40,10 +40,10 @@
             justify-content: center;
             overflow: hidden;
             position: relative;
-            transition: --bg-grad-1 2s ease, --bg-grad-2 2s ease, --bg-grad-3 2s ease; /* Smooth color transitions */
+            transition: --bg-grad-1 2s ease, --bg-grad-2 2s ease, --bg-grad-3 2s ease;
         }
 
-        /* Hack to allow CSS variables to transition smoothly */
+        /* Hack for smooth color transitions */
         @property --bg-grad-1 { syntax: '<color>'; inherits: false; initial-value: #2E004F; }
         @property --bg-grad-2 { syntax: '<color>'; inherits: false; initial-value: #800080; }
         @property --bg-grad-3 { syntax: '<color>'; inherits: false; initial-value: #A52A2A; }
@@ -64,10 +64,28 @@
             pointer-events: none;
         }
 
-        @keyframes infiniteGradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* Lightning flash overlay for the Rain theme */
+        #lightning-flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        body.theme-rain #lightning-flash {
+            animation: lightning 10s infinite;
+        }
+
+        @keyframes lightning {
+            0%, 95%, 98%, 100% { opacity: 0; }
+            96% { opacity: 0.8; }
+            97% { opacity: 0.2; }
+            99% { opacity: 0.9; }
         }
 
         #ambient-layer {
@@ -86,18 +104,48 @@
             z-index: 10;
             width: 90%;
             max-width: 650px;
-            background: var(--glass-bg), linear-gradient(135deg, rgba(255, 0, 255, 0.02), rgba(128, 0, 128, 0.02));
+            background: var(--glass-bg);
             backdrop-filter: blur(15px) saturate(160%);
             -webkit-backdrop-filter: blur(15px) saturate(160%);
             border-radius: 30px;
             border: 1px solid var(--glass-border);
             padding: 40px;
-            box-shadow: 
-                0 10px 40px rgba(0, 0, 0, 0.4), 
-                inset 0 0 15px var(--glow); /* Glow changes based on mood */
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 0 15px var(--glow); 
             text-align: center;
-            transition: box-shadow 1s ease;
+            transition: all 1.5s ease; /* Massive transition for when themes change */
         }
+
+        /* --- DRAMATIC THEME OVERRIDES --- */
+
+        /* Deep Space Theme: Removes the glass, makes elements float */
+        body.theme-stars .glass-panel {
+            background: transparent;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            border-color: transparent;
+            box-shadow: none;
+            transform: scale(1.05); /* Slight zoom in */
+        }
+        body.theme-stars h1 {
+            text-shadow: 0 0 20px #FFF, 0 0 40px #FFD700;
+        }
+
+        /* Magenta Mist Theme: Heavy glowing neon pulse */
+        body.theme-mist .glass-panel {
+            animation: neonPulse 4s infinite alternate;
+            border-color: rgba(255, 105, 180, 0.5);
+            background: rgba(255, 105, 180, 0.1);
+        }
+        body.theme-mist h1, body.theme-mist .subtitle {
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
+        }
+
+        @keyframes neonPulse {
+            0% { box-shadow: 0 0 20px rgba(255, 105, 180, 0.2), inset 0 0 20px rgba(255, 105, 180, 0.2); }
+            100% { box-shadow: 0 0 60px rgba(255, 105, 180, 0.6), inset 0 0 40px rgba(255, 105, 180, 0.4); }
+        }
+
+        /* -------------------------------- */
 
         h1 {
             font-family: 'Dancing Script', cursive;
@@ -106,7 +154,7 @@
             margin-bottom: 10px;
             color: var(--gold-accent); 
             text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            transition: color 1s ease;
+            transition: all 1s ease;
         }
 
         .subtitle {
@@ -115,6 +163,7 @@
             opacity: 0.8;
             margin-bottom: 30px;
             color: var(--text-main);
+            transition: all 1s ease;
         }
 
         .breathing-visual {
@@ -136,13 +185,14 @@
             opacity: 0.6;
             animation: breatheAnimation 8s ease-in-out infinite;
             box-shadow: 0 0 15px var(--glow);
-            transition: border-color 1s ease, box-shadow 1s ease;
+            transition: all 1s ease;
         }
 
         .breath-text {
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 2px;
+            font-weight: 700;
             opacity: 0.8;
             animation: breatheTextAnimation 8s ease-in-out infinite;
             color: var(--gold-accent); 
@@ -163,46 +213,50 @@
         .player-container iframe {
             border-radius: 20px;
             border: 4px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 
-                0 8px 20px rgba(0, 0, 0, 0.3), 
-                0 0 15px var(--glow); 
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 15px var(--glow); 
             width: 100%;
             max-width: 560px;
-            transition: box-shadow 1s ease;
+            transition: all 1s ease;
+            position: relative;
+            z-index: 20;
         }
 
         .controls-container {
-            margin-top: 30px;
+            margin-top: 40px;
             display: flex;
             justify-content: center;
             gap: 15px;
+            flex-wrap: wrap;
         }
 
         .mood-btn {
             background: rgba(255, 255, 255, 0.05); 
-            border: 1px solid var(--gold-accent); 
+            border: 2px solid var(--gold-accent); 
             color: var(--text-main);
-            padding: 10px 20px;
-            border-radius: 20px;
+            padding: 12px 24px;
+            border-radius: 30px;
             cursor: pointer;
             font-family: 'Quicksand', sans-serif;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            font-weight: 700;
             letter-spacing: 1px;
+            text-transform: uppercase;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
 
         .mood-btn:hover {
             background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px var(--glow);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 15px var(--glow);
         }
 
         .mood-btn.active {
             background: var(--primary-accent); 
             color: white;
             border-color: var(--primary-accent);
-            box-shadow: 0 4px 15px var(--primary-accent); 
+            box-shadow: 0 0 20px var(--primary-accent); 
+            transform: scale(1.1);
         }
 
         .ambient-particle {
@@ -216,11 +270,12 @@
 </head>
 <body>
 
+    <div id="lightning-flash"></div>
     <div id="ambient-layer"></div>
     
     <div class="glass-panel">
         <h1>For Air</h1>
-        <p class="subtitle">A quiet coffee shop with your favorite Bossa Nova sounds ☕</p>
+        <p class="subtitle">A quiet place with your favorite Bossa Nova sounds ☕</p>
 
         <div class="breathing-visual">
             <div class="breath-ring"></div>
@@ -257,6 +312,9 @@
             ambientLayer.style.backdropFilter = 'none';
             ambientLayer.style.background = 'none';
             
+            // Remove huge theme classes
+            document.body.className = '';
+            
             // Reset to default colors
             document.documentElement.style.setProperty('--bg-grad-1', '#2E004F');
             document.documentElement.style.setProperty('--bg-grad-2', '#800080');
@@ -273,38 +331,35 @@
             if (isActive) return; 
 
             buttonEl.classList.add('active');
+            document.body.classList.add('theme-' + moodType); // Triggers massive CSS changes!
 
             if (moodType === 'rain') {
-                // Shift to deep stormy blues
                 document.documentElement.style.setProperty('--bg-grad-1', '#0b132b');
                 document.documentElement.style.setProperty('--bg-grad-2', '#1c2541');
                 document.documentElement.style.setProperty('--bg-grad-3', '#3a506b');
-                document.documentElement.style.setProperty('--glow', 'rgba(92, 184, 228, 0.3)');
-                document.documentElement.style.setProperty('--primary-accent', '#3a506b');
-                document.documentElement.style.setProperty('--gold-accent', '#5cb8e4');
-                
-                createParticles(60, 'rain'); // More rain, heavier storm
-            } else if (moodType === 'stars') {
-                // Shift to pitch black and gold space
-                document.documentElement.style.setProperty('--bg-grad-1', '#000000');
-                document.documentElement.style.setProperty('--bg-grad-2', '#111111');
-                document.documentElement.style.setProperty('--bg-grad-3', '#222222');
-                document.documentElement.style.setProperty('--glow', 'rgba(255, 215, 0, 0.4)');
-                document.documentElement.style.setProperty('--primary-accent', '#FFD700');
+                document.documentElement.style.setProperty('--glow', 'rgba(92, 184, 228, 0.5)');
+                document.documentElement.style.setProperty('--primary-accent', '#5cb8e4');
                 document.documentElement.style.setProperty('--gold-accent', '#FFF');
                 
-                createParticles(35, 'stars'); // Brighter, denser stars
+                createParticles(80, 'rain'); 
+            } else if (moodType === 'stars') {
+                document.documentElement.style.setProperty('--bg-grad-1', '#000000');
+                document.documentElement.style.setProperty('--bg-grad-2', '#0a0a0a');
+                document.documentElement.style.setProperty('--bg-grad-3', '#111111');
+                document.documentElement.style.setProperty('--glow', 'rgba(255, 215, 0, 0.8)');
+                document.documentElement.style.setProperty('--primary-accent', '#FFD700');
+                document.documentElement.style.setProperty('--gold-accent', '#FFD700');
+                
+                createParticles(50, 'stars'); 
             } else if (moodType === 'mist') {
-                // Vibrant pink and purple nebula
                 document.documentElement.style.setProperty('--bg-grad-1', '#4a0e4e');
                 document.documentElement.style.setProperty('--bg-grad-2', '#812255');
                 document.documentElement.style.setProperty('--bg-grad-3', '#c53173');
-                document.documentElement.style.setProperty('--glow', 'rgba(255, 105, 180, 0.3)');
-                document.documentElement.style.setProperty('--primary-accent', '#c53173');
-                document.documentElement.style.setProperty('--gold-accent', '#ffb6c1');
+                document.documentElement.style.setProperty('--glow', 'rgba(255, 105, 180, 0.8)');
+                document.documentElement.style.setProperty('--primary-accent', '#ff69b4');
+                document.documentElement.style.setProperty('--gold-accent', '#FFF');
                 
-                ambientLayer.style.backdropFilter = 'blur(6px) saturate(130%)';
-                ambientLayer.style.background = 'rgba(255, 105, 180, 0.08)';
+                ambientLayer.style.backdropFilter = 'blur(10px) saturate(200%)';
             }
         }
 
@@ -314,27 +369,29 @@
                 p.classList.add('ambient-particle');
                 
                 p.style.left = Math.random() * 100 + 'vw';
-                p.style.opacity = Math.random() * 0.6 + 0.4; 
+                p.style.opacity = Math.random() * 0.8 + 0.2; 
 
                 if (type === 'rain') {
-                    p.style.width = '3px';
-                    p.style.height = Math.random() * 30 + 15 + 'px';
-                    p.style.background = 'rgba(173, 216, 230, 0.6)'; // Brighter rain
-                    p.style.top = '-40px';
-                    p.style.animation = `fall ${Math.random() * 1.5 + 0.8}s linear infinite`; // Faster rain
+                    p.style.width = '2px';
+                    p.style.height = Math.random() * 40 + 20 + 'px';
+                    p.style.background = 'rgba(173, 216, 230, 0.8)';
+                    p.style.top = '-50px';
+                    // Angle the rain so it looks like heavy wind
+                    p.style.transform = 'rotate(15deg)';
+                    p.style.animation = `heavyFall ${Math.random() * 1 + 0.5}s linear infinite`; 
                 } else if (type === 'stars') {
-                    const size = Math.random() * 6 + 3; // Bigger stars
+                    const size = Math.random() * 6 + 2; 
                     p.style.width = size + 'px';
                     p.style.height = size + 'px';
-                    p.style.background = Math.random() > 0.5 ? '#FFF' : '#FFD700'; // Pure white or pure gold
+                    p.style.background = Math.random() > 0.3 ? '#FFF' : '#FFD700'; 
                     p.style.top = Math.random() * 100 + 'vh';
-                    p.style.animation = `drift ${Math.random() * 10 + 8}s linear infinite`;
-                    p.style.boxShadow = '0 0 8px rgba(255, 255, 255, 0.8)'; // Make stars glow
+                    p.style.animation = `drift ${Math.random() * 20 + 10}s linear infinite`;
+                    p.style.boxShadow = '0 0 10px rgba(255, 255, 255, 0.8)'; 
                 }
 
                 ambientLayer.appendChild(p);
 
-                setTimeout(() => p.remove(), 15000);
+                setTimeout(() => p.remove(), 12000);
 
             }, 10000 / count); 
 
@@ -343,12 +400,12 @@
     </script>
 
     <style>
-        @keyframes fall {
-            to { transform: translateY(110vh); }
+        @keyframes heavyFall {
+            to { transform: translateY(120vh) translateX(30vh) rotate(15deg); }
         }
         @keyframes drift {
-            0% { transform: translate(0, 0) scale(0.8); opacity: 0; }
-            20% { opacity: 1; transform: translate(10px, -20vh) scale(1); }
+            0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+            20% { opacity: 1; transform: translate(20px, -10vh) scale(1.2); }
             80% { opacity: 1; }
             100% { transform: translate(${Math.random() * 100 - 50}px, -110vh) scale(0.5); opacity: 0; }
         }
