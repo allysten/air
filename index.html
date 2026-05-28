@@ -3,20 +3,306 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Air</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Air's Bossa Nova Lounge 🌿</title>
+    <!-- Importing gentle, aesthetic fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Quicksand:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Soft, muted pastel palette */
+            --bg-grad-1: #e9e4f0;
+            --bg-grad-2: #d3e0dc;
+            --bg-grad-3: #f1e1e1;
+            --text-main: #615555;
+            --glass-bg: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --glow: rgba(181, 196, 177, 0.4);
+            --primary-accent: #b5c4b1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(-45deg, var(--bg-grad-1), var(--bg-grad-2), var(--bg-grad-3), var(--bg-grad-2));
+            background-size: 400% 400%;
+            animation: infiniteGradient 20s ease infinite;
+            font-family: 'Quicksand', sans-serif;
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        @keyframes infiniteGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Ambient Particle Layer (Interactive) */
+        #ambient-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none; /* Let clicks pass through */
+            z-index: 1;
+        }
+
+        /* Glassmorphism Main Container */
+        .glass-panel {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 650px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px) saturate(160%);
+            -webkit-backdrop-filter: blur(15px) saturate(160%);
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: #5c4d4d;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            font-style: italic;
+            opacity: 0.8;
+            margin-bottom: 30px;
+        }
+
+        /* The Breathing Visualizer (Interactive) */
+        .breathing-visual {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .breath-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--primary-accent);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: breatheAnimation 8s ease-in-out infinite;
+            box-shadow: 0 0 15px var(--glow);
+        }
+
+        .breath-text {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.7;
+            animation: breatheTextAnimation 8s ease-in-out infinite;
+        }
+
+        @keyframes breatheAnimation {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.6); opacity: 0.8; box-shadow: 0 0 25px var(--glow); }
+        }
+
+        @keyframes breatheTextAnimation {
+            0%, 100% { content: "Inhale"; opacity: 0.5; }
+            50% { content: "Exhale"; opacity: 1; }
+            48%, 52% { opacity: 0; } /* Smooth transition of text */
+        }
+
+        /* The Player Frame */
+        .player-container iframe {
+            border-radius: 20px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 560px;
+        }
+
+        /* Interactive Atmosphere Controls */
+        .controls-container {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .mood-btn {
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: var(--text-main);
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .mood-btn:hover {
+            background: rgba(255, 255, 255, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .mood-btn.active {
+            background: var(--primary-accent);
+            color: white;
+            border-color: var(--primary-accent);
+            box-shadow: 0 4px 10px var(--glow);
+        }
+
+        /* Particle styles (Rain/Stars) */
+        .ambient-particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+    </style>
 </head>
 <body>
+
+    <!-- Ambient Layer for Dynamic Effects -->
+    <div id="ambient-layer"></div>
     
-    <div class="content">
-        <h1>Just breathe, Air.</h1>
-        <p>A quiet place with your favorite Bossa Nova sounds.</p>
+    <div class="glass-panel">
+        <h1>For Air</h1>
+        <p class="subtitle">Your private Bossa Nova lounge.</p>
+
+        <!-- Breathing Visualizer -->
+        <div class="breathing-visual">
+            <div class="breath-ring"></div>
+            <div class="breath-text" id="breath-label">Breathe</div>
+        </div>
         
-        <div class="player">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/g6j37XxiMWQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <div class="player-container">
+            <!-- This is the Bossa Nova playlist -->
+            <iframe width="100%" height="315" src="https://www.youtube.com/embed/g6j37XxiMWQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+
+        <!-- Interactive Atmosphere Controls -->
+        <div class="controls-container">
+            <button class="mood-btn" onclick="toggleMood('rain', this)">Gentle Rain</button>
+            <button class="mood-btn" onclick="toggleMood('stars', this)">Summer Stars</button>
+            <button class="mood-btn" onclick="toggleMood('mist', this)">Ocean Mist</button>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // Update Breathing Text
+        const breathLabel = document.getElementById('breath-label');
+        let breathState = 0;
+        setInterval(() => {
+            breathLabel.innerText = breathState === 0 ? "Exhale" : "Inhale";
+            breathState = (breathState + 1) % 2;
+        }, 4000); // Swaps every 4 seconds, matching the 8s CSS animation
+
+
+        // Atmosphere Particle System
+        const ambientLayer = document.getElementById('ambient-layer');
+        let activeIntervals = [];
+
+        function clearAtmosphere() {
+            // Remove existing particles
+            ambientLayer.innerHTML = '';
+            // Clear all intervals
+            activeIntervals.forEach(clearInterval);
+            activeIntervals = [];
+            // Deactivate all buttons
+            document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('active'));
+            // Reset background blur
+            ambientLayer.style.backdropFilter = 'none';
+        }
+
+        function toggleMood(moodType, buttonEl) {
+            const isActive = buttonEl.classList.contains('active');
+            
+            clearAtmosphere(); // Always start clean
+
+            if (isActive) return; // If it was active, we just wanted to turn it off
+
+            buttonEl.classList.add('active');
+
+            if (moodType === 'rain') {
+                createParticles(40, 'rain');
+            } else if (moodType === 'stars') {
+                createParticles(25, 'stars');
+            } else if (moodType === 'mist') {
+                ambientLayer.style.backdropFilter = 'blur(3px) saturate(110%)';
+                ambientLayer.style.background = 'rgba(211, 224, 220, 0.1)';
+            }
+        }
+
+        function createParticles(count, type) {
+            const interval = setInterval(() => {
+                const p = document.createElement('div');
+                p.classList.add('ambient-particle');
+                
+                // Common properties
+                p.style.left = Math.random() * 100 + 'vw';
+                p.style.opacity = Math.random() * 0.5 + 0.2;
+
+                if (type === 'rain') {
+                    p.style.width = '2px';
+                    p.style.height = Math.random() * 20 + 10 + 'px';
+                    p.style.background = 'rgba(173, 216, 230, 0.4)';
+                    p.style.top = '-20px';
+                    p.style.animation = `fall ${Math.random() * 2 + 1}s linear infinite`;
+                } else if (type === 'stars') {
+                    const size = Math.random() * 5 + 2;
+                    p.style.width = size + 'px';
+                    p.style.height = size + 'px';
+                    p.style.background = 'rgba(255, 255, 255, 0.7)';
+                    p.style.top = Math.random() * 100 + 'vh';
+                    p.style.animation = `drift ${Math.random() * 15 + 10}s linear infinite`;
+                }
+
+                ambientLayer.appendChild(p);
+
+                // Remove particle after animation
+                setTimeout(() => p.remove(), 20000);
+
+            }, 10000 / count); // Spread particle creation
+
+            activeIntervals.push(interval);
+        }
+    </script>
+
+    <!-- Keyframes for JavaScript Animations -->
+    <style>
+        @keyframes fall {
+            to { transform: translateY(110vh); }
+        }
+        @keyframes drift {
+            0% { transform: translate(0, 0); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translate(${Math.random() * 100 - 50}px, -110vh); opacity: 0; }
+        }
+    </style>
 </body>
 </html>
