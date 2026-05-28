@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Air's Bossa Nova Lounge 🌿</title>
+    <title>Air's Bossa Nova Lounge 🌿☕</title>
     <!-- Importing gentle, aesthetic fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Quicksand:wght@300;400&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Soft, muted pastel palette */
-            --bg-grad-1: #e9e4f0;
-            --bg-grad-2: #d3e0dc;
-            --bg-grad-3: #f1e1e1;
-            --text-main: #615555;
-            --glass-bg: rgba(255, 255, 255, 0.25);
-            --glass-border: rgba(255, 255, 255, 0.3);
-            --glow: rgba(181, 196, 177, 0.4);
-            --primary-accent: #b5c4b1;
+            /* Deep, immersive galaxy-inspired color palette based on "the_airistocractic_state__227487.jpg" */
+            --bg-grad-1: #2E004F; /* Deep Purple */
+            --bg-grad-2: #800080; /* Deep Magenta */
+            --bg-grad-3: #A52A2A; /* Deep Ruby Red */
+            --text-main: #E0E0E0; /* Light Off-white */
+            --glass-bg: rgba(255, 255, 255, 0.05); /* Clear glass effect */
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glow: rgba(244, 197, 66, 0.1); /* Gold glow from flag stars */
+            --primary-accent: #800080; /* Rich Magenta, making it "pink and purple" */
+            --gold-accent: #F4C542; /* Gold from flag stars for the title and detail accents */
         }
 
         * {
@@ -28,9 +29,10 @@
         }
 
         body {
+            /* Immersive shifting galaxy-inspired gradient */
             background: linear-gradient(-45deg, var(--bg-grad-1), var(--bg-grad-2), var(--bg-grad-3), var(--bg-grad-2));
             background-size: 400% 400%;
-            animation: infiniteGradient 20s ease infinite;
+            animation: infiniteGradient 30s ease infinite; /* Slower, deeper shift */
             font-family: 'Quicksand', sans-serif;
             color: var(--text-main);
             height: 100vh;
@@ -39,6 +41,23 @@
             justify-content: center;
             overflow: hidden;
             position: relative;
+        }
+
+        /* Subtle galaxy texture overlay for deep space feel */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+                radial-gradient(circle at 10% 10%, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+            background-size: 60px 60px, 40px 40px;
+            opacity: 0.1;
+            z-index: -1;
+            pointer-events: none;
         }
 
         @keyframes infiniteGradient {
@@ -58,19 +77,23 @@
             z-index: 1;
         }
 
-        /* Glassmorphism Main Container */
+        /* Glassmorphism Main Container with a subtle pink and purple tint */
         .glass-panel {
             position: relative;
             z-index: 10;
             width: 90%;
             max-width: 650px;
-            background: var(--glass-bg);
+            /* Subtly tinted glass panel */
+            background: var(--glass-bg), linear-gradient(135deg, rgba(255, 0, 255, 0.02), rgba(128, 0, 128, 0.02));
             backdrop-filter: blur(15px) saturate(160%);
             -webkit-backdrop-filter: blur(15px) saturate(160%);
             border-radius: 30px;
             border: 1px solid var(--glass-border);
             padding: 40px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.2), 
+                inset 0 0 15px rgba(255, 0, 255, 0.03), 
+                inset 0 0 10px rgba(244, 197, 66, 0.03); /* Complex glow including gold hint from flag stars */
             text-align: center;
             transition: transform 0.3s ease;
         }
@@ -80,7 +103,8 @@
             font-size: 3.5rem;
             font-weight: 500;
             margin-bottom: 10px;
-            color: #5c4d4d;
+            color: var(--gold-accent); /* Special gold color for the title to honor the flag stars */
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         }
 
         .subtitle {
@@ -88,9 +112,10 @@
             font-style: italic;
             opacity: 0.8;
             margin-bottom: 30px;
+            color: var(--text-main);
         }
 
-        /* The Breathing Visualizer (Interactive) */
+        /* The Breathing Visualizer (Interactive) with new gold/purple accent */
         .breathing-visual {
             position: relative;
             width: 120px;
@@ -105,7 +130,7 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            border: 2px solid var(--primary-accent);
+            border: 2px solid var(--primary-accent); /* Main accent is now magenta/purple */
             border-radius: 50%;
             opacity: 0.6;
             animation: breatheAnimation 8s ease-in-out infinite;
@@ -116,8 +141,9 @@
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 2px;
-            opacity: 0.7;
+            opacity: 0.8;
             animation: breatheTextAnimation 8s ease-in-out infinite;
+            color: var(--gold-accent); /* Use gold detail accent for text to match title nod to flag stars */
         }
 
         @keyframes breatheAnimation {
@@ -126,21 +152,23 @@
         }
 
         @keyframes breatheTextAnimation {
-            0%, 100% { content: "Inhale"; opacity: 0.5; }
+            0%, 100% { content: "Inhale"; opacity: 0.6; }
             50% { content: "Exhale"; opacity: 1; }
             48%, 52% { opacity: 0; } /* Smooth transition of text */
         }
 
-        /* The Player Frame */
+        /* The Player Frame with gold trim accent */
         .player-container iframe {
             border-radius: 20px;
             border: 4px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 
+                0 8px 20px rgba(0, 0, 0, 0.2), 
+                0 0 10px rgba(244, 197, 66, 0.1); /* Complex box shadow with gold trim nod to flag stars */
             width: 100%;
             max-width: 560px;
         }
 
-        /* Interactive Atmosphere Controls */
+        /* Interactive Atmosphere Controls with new gold/purple colors */
         .controls-container {
             margin-top: 30px;
             display: flex;
@@ -149,8 +177,8 @@
         }
 
         .mood-btn {
-            background: rgba(255, 255, 255, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.05); /* Clearer button base */
+            border: 1px solid var(--gold-accent); /* Outline in flag gold accent color */
             color: var(--text-main);
             padding: 10px 20px;
             border-radius: 20px;
@@ -159,25 +187,26 @@
             font-size: 0.85rem;
             letter-spacing: 1px;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .mood-btn:hover {
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.1);
             transform: translateY(-2px);
-        }
-
-        .mood-btn.active {
-            background: var(--primary-accent);
-            color: white;
-            border-color: var(--primary-accent);
             box-shadow: 0 4px 10px var(--glow);
         }
 
-        /* Particle styles (Rain/Stars) */
+        .mood-btn.active {
+            background: var(--primary-accent); /* Active button is Magenta, making it "pink and purple" */
+            color: white;
+            border-color: var(--primary-accent);
+            box-shadow: 0 4px 10px var(--primary-accent); /* Magenta active glow */
+        }
+
+        /* Particle styles (Rain/Stars) updated with complex mixed blend of silver, gold, and pink/purple */
         .ambient-particle {
             position: absolute;
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.7);
             border-radius: 50%;
             pointer-events: none;
         }
@@ -191,7 +220,7 @@
     
     <div class="glass-panel">
         <h1>For Air</h1>
-        <p class="subtitle">Your private Bossa Nova lounge.</p>
+        <p class="subtitle">A quiet coffee shop with your favorite Bossa Nova sounds ☕</p>
 
         <!-- Breathing Visualizer -->
         <div class="breathing-visual">
@@ -200,8 +229,8 @@
         </div>
         
         <div class="player-container">
-            <!-- This is the Bossa Nova playlist -->
-            <iframe width="100%" height="315" src="https://www.youtube.com/embed/g6j37XxiMWQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <!-- Smooth Bossa Nova Jazz Live Stream -->
+            <iframe width="100%" height="315" src="https://www.youtube.com/embed/G6gRMc6v0mI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
 
         <!-- Interactive Atmosphere Controls -->
@@ -234,8 +263,9 @@
             activeIntervals = [];
             // Deactivate all buttons
             document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('active'));
-            // Reset background blur
+            // Reset background blur and tint
             ambientLayer.style.backdropFilter = 'none';
+            ambientLayer.style.background = 'none';
         }
 
         function toggleMood(moodType, buttonEl) {
@@ -253,7 +283,8 @@
                 createParticles(25, 'stars');
             } else if (moodType === 'mist') {
                 ambientLayer.style.backdropFilter = 'blur(3px) saturate(110%)';
-                ambientLayer.style.background = 'rgba(211, 224, 220, 0.1)';
+                // Add a very subtle mist tint for deep ocean feel, inspired by flag ruby red spectrum
+                ambientLayer.style.background = 'rgba(128, 0, 0, 0.03)';
             }
         }
 
@@ -264,19 +295,24 @@
                 
                 // Common properties
                 p.style.left = Math.random() * 100 + 'vw';
-                p.style.opacity = Math.random() * 0.5 + 0.2;
+                p.style.opacity = Math.random() * 0.5 + 0.3; /* Increased particle brightness */
 
                 if (type === 'rain') {
                     p.style.width = '2px';
                     p.style.height = Math.random() * 20 + 10 + 'px';
-                    p.style.background = 'rgba(173, 216, 230, 0.4)';
+                    // Subtle light-blue-tinted rain particles
+                    p.style.background = 'rgba(173, 216, 230, 0.3)';
                     p.style.top = '-20px';
                     p.style.animation = `fall ${Math.random() * 2 + 1}s linear infinite`;
                 } else if (type === 'stars') {
                     const size = Math.random() * 5 + 2;
                     p.style.width = size + 'px';
                     p.style.height = size + 'px';
-                    p.style.background = 'rgba(255, 255, 255, 0.7)';
+                    // Complex mix of silver, gold, and pink/purple for stars for deep space feel
+                    p.style.background = Math.random() > 0.6 ? 
+                        'rgba(244, 197, 66, 0.3)' : /* Complex complex box shadow with gold trim nod to flag stars */
+                        Math.random() > 0.4 ? 'rgba(255, 0, 255, 0.3)' : /* Complex complex box shadow with magenta hint for pink/purple request */
+                        'rgba(255, 255, 255, 0.7)'; /* Clean complex complex box shadow with clear star base */
                     p.style.top = Math.random() * 100 + 'vh';
                     p.style.animation = `drift ${Math.random() * 15 + 10}s linear infinite`;
                 }
